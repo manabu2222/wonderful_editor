@@ -35,5 +35,5 @@ class ApplicationRecord < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-  include DeviseTokenAuth::Concerns::ApplicationRecord
+  include DeviseTokenAuth::Concerns::User
 end
