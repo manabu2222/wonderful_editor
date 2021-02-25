@@ -11,8 +11,8 @@
 #  confirmed_at           :datetime
 #  email                  :string
 #  encrypted_password     :string           default(""), not null
+#  image                  :string
 #  name                   :string
-#  password               :string
 #  provider               :string           default("email"), not null
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
@@ -31,6 +31,9 @@
 #  index_users_on_uid_and_provider      (uid,provider) UNIQUE
 #
 class User < ApplicationRecord
+  has_many :articles, dependent: :destroy
+  has_many :article_likes, dependent: :destroy
+  has_many :comments, dependent: :destroy
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
