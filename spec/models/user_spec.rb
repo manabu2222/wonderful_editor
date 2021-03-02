@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: users
@@ -30,16 +28,38 @@
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #  index_users_on_uid_and_provider      (uid,provider) UNIQUE
 #
-class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
-  include DeviseTokenAuth::Concerns::User
+require "rails_helper"
 
-  validates :name, presence: true
+RSpec.describe User, type: :model do
+  context "必要なデータが入力されているとき" do
+    let(:user) { build(:user) }
 
-  has_many :articles, dependent: :destroy
-  has_many :article_likes, dependent: :destroy
-  has_many :comments, dependent: :destroy
+    it "ユーザー作成に成功する" do
+      expect(user).to be_valid
+    end
+  end
+
+  context "名前のみ入力しているとき" do
+    let(:user) { build(:user, email: nil, password: nil) }
+
+    it "エラーが発生する" do
+      expect(user).not_to be_valid
+    end
+  end
+
+  context "email がないとき" do
+    let(:user) { build(:user, email: nil) }
+
+    it "エラーが発生する" do
+      expect(user).not_to be_valid
+    end
+  end
+
+  context "password がないとき" do
+    let(:user) { build(:user, password: nil) }
+
+    it "エラーが発生する" do
+      expect(user).not_to be_valid
+    end
+  end
 end
