@@ -2,16 +2,16 @@ module Api::V1
   # base_api_controller を継承
   class ArticlesController < BaseApiController
     def new
-      #空のArticleオブジェクトを生成
+      # 空のArticleオブジェクトを生成
       @article = Article.new
     end
 
     def create
       @article = Article.new(article_params)
       if @article.save
-        redirect_to @article #@articleはarticle_path(@article)と同義
+        redirect_to @article # @articleはarticle_path(@article)と同義
       else
-        #エラー時は再度、記事登録画面を表示させる
+        # エラー時は再度、記事登録画面を表示させる
         render :new
       end
     end
@@ -27,9 +27,10 @@ module Api::V1
     end
 
     private
-    #ストロングパラメータでpermitに渡された値以外を受け取らないようにする
-    def article_params
-      params.require(:article).permit(:title,:body)
-    end
+
+      # ストロングパラメータでpermitに渡された値以外を受け取らないようにする
+      def article_params
+        params.require(:article).permit(:title, :body)
+      end
   end
 end
