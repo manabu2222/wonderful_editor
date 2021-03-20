@@ -53,7 +53,7 @@ RSpec.describe "Api::V1::Articles", type: :request do
 
     before { allow_any_instance_of(Api::V1::BaseApiController).to receive(:current_user).and_return(current_user) }
 
-    fit "記事の作成に成功する" do
+    it "記事の作成に成功する" do
       expect { subject }.to change { Article.where(user_id: current_user.id).count }.by(1)
       res = JSON.parse(response.body)
       expect(res["title"]).to eq params[:article][:title]
