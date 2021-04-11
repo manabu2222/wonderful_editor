@@ -1,6 +1,9 @@
 module Api::V1
   # base_api_controller を継承
   class ArticlesController < BaseApiController
+    # current_userでユーザー情報を取得できる
+    before_action :authenticate_user!, only: [:create, :update, :destroy]
+
     def create
       article = current_user.articles.create!(article_params)
       render json: article, serializer: Api::V1::ArticleSerializer
