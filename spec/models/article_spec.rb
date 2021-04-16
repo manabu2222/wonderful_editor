@@ -4,6 +4,7 @@
 #
 #  id         :bigint           not null, primary key
 #  body       :text
+#  status     :integer          default(NULL), not null
 #  title      :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
@@ -27,10 +28,17 @@ RSpec.describe Article, type: :model do
     end
   end
 
-  context "title を指定していないとき" do
-    let(:article) { build(:article, title: nil) }
-    it "記事作成に失敗する" do
-      expect(article.valid?).to eq false
+  context "記事を公開状態にしたとき" do
+    let(:article) { build(:article, :published) }
+    it "記事を公開状態で作成できる" do
+      expect(article.status).to eq "published"
+    end
+  end
+
+  context "記事を下書き状態にしたとき" do
+    let(:article) { build(:article, :draft) }
+    it "記事を下書き状態で作成できる" do
+      expect(article.status).to eq "draft"
     end
   end
 end

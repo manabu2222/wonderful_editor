@@ -11,6 +11,13 @@ module Api::V1
 
     def show
       article = Article.find(params[:id])
+
+      if article.nil?
+        redirect_to action: "index"
+      elsif article.draft?
+        require_login and return
+      end
+
       render json: article, serializer: Api::V1::ArticleSerializer
     end
 
@@ -34,7 +41,15 @@ module Api::V1
 
       # ストロングパラメータでpermitに渡された値以外を受け取らないようにする
       def article_params
-        params.require(:article).permit(:title, :body)
+        params.require(:article).permit(:title, :body, :status)
+      end
+
+      def require_login
+        redirect_to sign_in_path if !logged_in?
+      end
+
+      def logged_in?
+        !current_user.nil?
       end
   end
 end
