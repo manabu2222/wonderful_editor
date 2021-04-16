@@ -45,7 +45,7 @@ module Api::V1
       end
 
       def require_login
-        redirect_to sign_in_path if !logged_in?
+        redirect_to sign_in_path unless logged_in?
       end
 
       def logged_in?
