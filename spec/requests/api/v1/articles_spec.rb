@@ -64,7 +64,7 @@ RSpec.describe "Api::V1::Articles", type: :request do
   describe "PATCH api/v1/articles/:id" do
     subject { patch(api_v1_article_path(article.id), params: params, headers: headers) }
 
-    let(:params) { { article: attributes_for(:article) } }
+    let(:params) { { article: attributes_for(:article, status: "published") } }
     let(:current_user) { create(:user) }
     let(:headers) { current_user.create_new_auth_token }
 
@@ -74,6 +74,7 @@ RSpec.describe "Api::V1::Articles", type: :request do
       it "記事を更新できる" do
         expect { subject }.to change { article.reload.title }.from(article.title).to(params[:article][:title]) &
                               change { article.reload.body }.from(article.body).to(params[:article][:body])
+                              binding.pry
         expect(response).to have_http_status(:ok)
       end
     end
