@@ -4,13 +4,13 @@ module Api::V1
     # current_userでユーザー情報を取得できる
     before_action :authenticate_user!, only: [:create, :update, :destroy]
 
-    def create
-      article = current_user.articles.create!(article_params)
-      render json: article, serializer: Api::V1::ArticleSerializer
+    def index
+      articles = Article.published.order(updated_at: :desc)
+      render json: articles, each_serializer: Api::V1::ArticlePreviewSerializer
     end
 
     def show
-      article = Article.find(params[:id])
+      article = Article.published.find(params[:id])
 
       if article.nil?
         redirect_to action: "index"
@@ -21,15 +21,15 @@ module Api::V1
       render json: article, serializer: Api::V1::ArticleSerializer
     end
 
-    def index
-      articles = Article.published.order(updated_at: :desc)
-      render json: articles, each_serializer: Api::V1::ArticlePreviewSerializer
+    def create
+      article = current_user.articles.create!(article_params)
+      render json: article
     end
 
     def update
       article = current_user.articles.find(params[:id])
       article.update!(article_params)
-      render json: article, serializer: Api::V1::ArticleSerializer
+      render json: article
     end
 
     def destroy
