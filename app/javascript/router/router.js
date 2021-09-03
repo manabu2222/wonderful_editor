@@ -11,7 +11,6 @@ import MyPage from "../components/MyPage.vue";
 
 Vue.use(Router);
 
-
 const router = new Router({
   mode: "history",
   routes: [
@@ -25,6 +24,10 @@ const router = new Router({
       component: Registration,
     },
     {
+      path: "/guest_sign_in",
+      component: ArticleList,
+    },
+    {
       path: "/sign_in",
       component: Login,
     },
@@ -34,16 +37,15 @@ const router = new Router({
     },
     {
       path: "/articles/drafts",
-      component: DraftArticlesContainer
+      component: DraftArticlesContainer,
     },
     {
       path: "/articles/:id/edit",
-      component: EditArticle
+      component: EditArticle,
     },
     {
-      path:
-      "/articles/drafts/:id/edit",
-      component: EditDraftArticleContainer
+      path: "/articles/drafts/:id/edit",
+      component: EditDraftArticleContainer,
     },
     {
       path: "/articles/:id",
@@ -52,7 +54,7 @@ const router = new Router({
     },
     {
       path: "/mypage",
-      component: MyPage
+      component: MyPage,
     },
   ],
 });
