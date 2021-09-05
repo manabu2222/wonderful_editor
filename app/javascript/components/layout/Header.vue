@@ -30,7 +30,7 @@
       <router-link to="/sign_up" class="header-link">
         <v-btn text class="register font-weight-bold">ユーザー登録</v-btn>
       </router-link>
-      <router-link to="/guest_sign_in" class="header-link">
+      <router-link to="api/v1/auth/guest_sign_ins" class="header-link">
         <v-btn text class="font-weight-bold">ゲストログイン</v-btn>
       </router-link>
       <router-link to="/sign_in" class="header-link">
