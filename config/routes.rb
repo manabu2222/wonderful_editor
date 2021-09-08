@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       mount_devise_token_auth_for "User", at: "auth", controllers: {
-        registrations: "api/v1/auth/registrations",
+        # registrations: "api/v1/auth/registrations",
         guest_sign_ins: "api/v1/auth/guest_sign_ins",
       }
       namespace :articles do
@@ -24,6 +24,7 @@ Rails.application.routes.draw do
       namespace :current do
         resources :articles, only: [:index]
       end
+      resources :guest_sign_ins
       resources :articles
     end
   end
