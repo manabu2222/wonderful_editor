@@ -4,6 +4,7 @@
       <Header/>
     </dir>
     <div class="layout">
+      <!-- router-view にコンポーネントが描画される -->
       <router-view></router-view>
     </div>
   </v-app>
