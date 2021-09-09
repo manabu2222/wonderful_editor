@@ -24,7 +24,7 @@ Rails.application.routes.draw do
       namespace :current do
         resources :articles, only: [:index]
       end
-      resources :guest_sign_ins
+      resources :guest_sign_ins , only: [:create]
       resources :articles
     end
   end
