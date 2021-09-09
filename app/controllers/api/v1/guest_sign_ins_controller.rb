@@ -1,6 +1,6 @@
 module Api::V1
   class GuestSignInsController < BaseApiController
-    def index
+    def create
       binding.pry
     end
   end
