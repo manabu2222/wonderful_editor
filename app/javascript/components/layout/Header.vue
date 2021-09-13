@@ -89,6 +89,13 @@ export default {
     async guest_sign_ins() {
       await axios
         .post("/api/v1/guest_sign_ins")
+        .then(response => {
+          localStorage.setItem("access-token", response.headers["access-token"]);
+          localStorage.setItem("uid", response.headers["uid"]);
+          localStorage.setItem("client", response.headers["client"]);
+          Router.push("/");
+          window.location.reload()
+        })
     },
     async logout() {
       await axios
