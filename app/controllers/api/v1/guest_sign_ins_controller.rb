@@ -5,7 +5,7 @@ module Api::V1
     # ゲストユーザー生成
     def create
       user = User.find_or_create_by!(name: "guest", email: "guest@example.com") do |_users|
-        user.password = SecureRandom.urlsafe_base64
+        _users.password = SecureRandom.urlsafe_base64
       end
       tokens = user.create_new_auth_token
       headers["access-token"] = tokens["access-token"]
