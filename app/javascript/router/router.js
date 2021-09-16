@@ -24,10 +24,6 @@ const router = new Router({
       component: Registration,
     },
     {
-      path: "/guest_sign_in",
-      component: ArticleList,
-    },
-    {
       path: "/sign_in",
       component: Login,
     },

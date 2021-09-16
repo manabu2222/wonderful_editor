@@ -30,9 +30,7 @@
       <router-link to="/sign_up" class="header-link">
         <v-btn text class="register font-weight-bold">ユーザー登録</v-btn>
       </router-link>
-      <router-link to="/guest_sign_in" class="header-link">
-        <v-btn text class="font-weight-bold">ゲストログイン</v-btn>
-      </router-link>
+      <v-btn @click="guest_sign_ins" text class="font-weight-bold">ゲストログイン</v-btn>
       <router-link to="/sign_in" class="header-link">
         <v-btn text class="font-weight-bold">ログイン</v-btn>
       </router-link>
@@ -57,6 +55,8 @@ const headers = {
 };
 
 export default {
+  // 定義されたデータメソッドは return で
+  // isLoggedIn に対して、!!localStorage.getItem("access-token") を返す
   data() {
     return {
       isLoggedIn: !!localStorage.getItem("access-token"),
@@ -86,6 +86,17 @@ export default {
   },
 
   methods: {
+    async guest_sign_ins() {
+      await axios
+        .post("/api/v1/guest_sign_ins")
+        .then(response => {
+          localStorage.setItem("access-token", response.headers["access-token"]);
+          localStorage.setItem("uid", response.headers["uid"]);
+          localStorage.setItem("client", response.headers["client"]);
+          Router.push("/");
+          window.location.reload()
+        })
+    },
     async logout() {
       await axios
         .delete("/api/v1/auth/sign_out", headers)

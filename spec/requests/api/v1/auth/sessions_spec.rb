@@ -53,27 +53,6 @@ RSpec.describe "Api::V1::Auth::Sessions", type: :request do
     end
   end
 
-  # ーーーーーーーーーーーーコメント部分については、後ほど実装を行う予定ーーーーーーーーーーーー
-  #
-  # describe "POST api/v1/auth/guest_sign_in" do
-  #   subject { post(api_v1_user_session_path, params: params) }
-  #
-  #   context "正常系" do
-  #     context "ゲストログインボタンが押下されたとき" do
-  #       it "ログインに成功する" do
-  #
-  #       end
-  #     end
-  #   end
-  #
-  #   context "異常系" do
-  #
-  #   end
-  #
-  # end
-  #
-  # ーーーーーーーーーーーーコメント部分については、後ほど実装を行う予定ーーーーーーーーーーーー
-
   describe "DELETE api/v1/auth/sign_out" do
     subject { delete(destroy_api_v1_user_session_path, headers: headers) }
 

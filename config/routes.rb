@@ -4,7 +4,6 @@ Rails.application.routes.draw do
   # reload 対策
   get "sign_up", to: "home#index"
   get "sign_in", to: "home#index"
-  get "guest_sign_in", to: "home#index"
   get "articles/new", to: "home#index"
   get "articles/draft", to: "home#index"
   get "articles/drafts/:id/edit", to: "home#index"
@@ -23,6 +22,7 @@ Rails.application.routes.draw do
       namespace :current do
         resources :articles, only: [:index]
       end
+      resources :guest_sign_ins, only: [:create]
       resources :articles
     end
   end
