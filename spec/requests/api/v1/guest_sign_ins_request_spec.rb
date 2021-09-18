@@ -2,12 +2,11 @@ require "rails_helper"
 
 RSpec.describe "Api::V1::GuestSignIns", type: :request do
   describe "POST api/v1/guest_sign_ins" do
-    subject { post(api_v1_guest_sign_ins_path, params: params) }
+    subject { post(api_v1_guest_sign_ins_path) }
 
     context "正常系" do
       context "ゲストログインボタンが押下されたとき" do
         let(:user) { create(:user) }
-        let(:params) { user.create_new_auth_token }
 
         it "ゲストログインに成功する" do
           subject
@@ -21,19 +20,18 @@ RSpec.describe "Api::V1::GuestSignIns", type: :request do
     end
 
     context "異常系" do
-      context "ゲストログイン時、誤った情報が送られたとき" do
-        let(:user) { create(:user) }
-        let(:params) { { email: "", password: "password" } }
-
-        it "ゲストログインできない" do
+      context "ゲストログインボタンが押下されたとき" do
+        it "予期せぬ影響でトークンが破棄されたら、ログイン時に行えていた動作ができなくなる" do
           subject
-
-          # ここから
-          # この間に、トークン情報を破棄する何かを追加する
-          # ここまで
-
-          # expect(response).to have_http_status(:ok)
-          # expect(response).to have_http_status(204)
+          header = response.header
+          # トークン破棄
+          header.delete("uid")
+          header.delete("access-token")
+          header.delete("client")
+          # トークン破棄後、記事削除処理が通るか試す
+          # トークンが破棄されているとき、処理は通らない
+          delete "/api/v1/articles/:1"
+          expect(response).to have_http_status(:unauthorized)
         end
       end
     end
