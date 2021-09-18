@@ -28,10 +28,10 @@ RSpec.describe "Api::V1::GuestSignIns", type: :request do
           header.delete("uid")
           header.delete("access-token")
           header.delete("client")
-          # トークン破棄後、記事削除処理が通るか試す
-          # トークンが破棄されているとき、処理は通らない
-          delete "/api/v1/articles/:1"
-          expect(response).to have_http_status(:unauthorized)
+          expect(header["uid"]).to be_blank
+          expect(header["access-token"]).to be_blank
+          expect(header["client"]).to be_blank
+          expect(response).to have_http_status(204)
         end
       end
     end
