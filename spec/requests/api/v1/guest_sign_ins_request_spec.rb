@@ -17,10 +17,8 @@ RSpec.describe "Api::V1::GuestSignIns", type: :request do
           expect(response).to have_http_status(:no_content)
         end
       end
-    end
 
-    context "正常系" do
-      context "ゲストログインのリクエストが送られたとき" do
+      context "ゲストログインのリクエストが二度送られたとき" do
         let(:user) { create(:user) }
 
         it "トークンが破棄されても、再びゲストログインのリクエストが送られれば、新たなトークンが付与される" do
