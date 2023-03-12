@@ -6,6 +6,8 @@
 
 - 操作の流れ（新規登録→記事作成→記事一覧表示→記事削除→ログアウト）
 
+![portfolio](https://user-images.githubusercontent.com/59129419/224529496-392d1e38-c252-4070-9cd9-383f4883f766.gif)
+
 # 動作環境
 
 - ruby 2.7.1
